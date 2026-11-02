@@ -19,6 +19,8 @@ This fork adds a Netflix-style account switcher on top of the regular app. No ch
 
 > The PIN keeps people in your household out of an account on this TV. It isn't protection against someone with developer access to the TV, because tokens are stored unencrypted in the app's storage, just like in regular Jellyfin. It also can't protect an account that has no password, since that account can sign in again from the login screen. Give PIN-protected accounts a password, and hide them from the login screen in the server's user settings.
 
+This build has its own app ID (`JfAccounts.Jellyfin`), so it installs alongside the official app. The two don't share saved logins.
+
 The feature lives in [`accounts.js`](accounts.js), and the `modifyIndex` task in [`gulpfile.babel.js`](gulpfile.babel.js) injects it.
 
 ## Build Process
@@ -91,7 +93,7 @@ tizen build-web -e ".*" -e gulpfile.babel.js -e README.md -e "node_modules/*" -e
 tizen package -t wgt -o . -- .buildResult
 ```
 
-> You should get `Jellyfin.wgt`.
+> You should get `JellyfinAccounts.wgt`.
 
 ## Deployment
 
@@ -100,7 +102,7 @@ tizen package -t wgt -o . -- .buildResult
 1. Run emulator.
 2. Install package.
    ```sh
-   tizen install -n Jellyfin.wgt -t T-samsung-5.5-x86
+   tizen install -n JellyfinAccounts.wgt -t T-samsung-5.5-x86
    ```
    > Specify target with `-t` option. Use `sdb devices` to list them.
 
@@ -133,6 +135,6 @@ tizen package -t wgt -o . -- .buildResult
       ```
 5. Install package.
    ```sh
-   tizen install -n Jellyfin.wgt -t UE65NU7400
+   tizen install -n JellyfinAccounts.wgt -t UE65NU7400
    ```
    > Specify target with `-t` option. Use `sdb devices` to list them.
