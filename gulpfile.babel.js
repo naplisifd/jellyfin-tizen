@@ -113,6 +113,21 @@ function modifyIndex() {
             tizen.setAttribute('defer', '');
             injectTarget.insertBefore(tizen, apploader);
 
+            // inject accounts.js
+            const accounts = this.createElement('script');
+            accounts.setAttribute('src', '../accounts.js');
+            accounts.setAttribute('defer', '');
+            injectTarget.insertBefore(accounts, apploader);
+
+            // Hold back the web app, accounts.js starts it once an account is unlocked
+            this.querySelectorAll('script[src]').forEach(function (script) {
+                if (script === webapis || script === tizen || script === accounts) return;
+
+                script.setAttribute('data-src', script.getAttribute('src'));
+                script.removeAttribute('src');
+                script.removeAttribute('defer');
+            });
+
             return this;
         }))
         .pipe(gulp.dest(paths.index.dest))

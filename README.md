@@ -7,6 +7,20 @@
 <img alt="Logo Banner" src="https://raw.githubusercontent.com/jellyfin/jellyfin-ux/master/branding/SVG/banner-logo-solid.svg?sanitize=true"/>
 </p>
 
+## Accounts
+
+This fork adds a Netflix-style account switcher on top of the regular app. No changes to Jellyfin Web or the server are needed.
+
+* **Switching:** every account you sign in to is remembered. Use the switch icon next to the user icon in the header, or the picker shown at startup when more than one account is saved. Nobody has to retype a password, and the other accounts stay signed in.
+* **Adding:** choose `Add account` in the picker and sign in as usual. Accounts on different servers can be mixed.
+* **PIN:** choose `Manage accounts` in the picker to set, change or remove a 4-digit PIN. Use the on-screen pad or the number keys on the remote. The PIN is asked for at startup, when switching to the account, and when returning to the app after 5 minutes in the background. After 5 wrong tries, PIN entry is blocked for a minute.
+* **Forgotten PIN:** choose `Forgot PIN` on the PIN screen and sign in with the account's password.
+* **Signing out** in the app revokes the token. The account stays in the picker as `Signed out`, with its PIN, until it's signed in again or removed.
+
+> The PIN keeps people in your household out of an account on this TV. It isn't protection against someone with developer access to the TV, because tokens are stored unencrypted in the app's storage, just like in regular Jellyfin. It also can't protect an account that has no password, since that account can sign in again from the login screen. Give PIN-protected accounts a password, and hide them from the login screen in the server's user settings.
+
+The feature lives in [`accounts.js`](accounts.js), and the `modifyIndex` task in [`gulpfile.babel.js`](gulpfile.babel.js) injects it.
+
 ## Build Process
 _Also look [Wiki](https://github.com/jellyfin/jellyfin-tizen/wiki)._
 
